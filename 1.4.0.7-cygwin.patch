@@ -1,0 +1,25 @@
+--- origsrc/scratch-1.4.0.7.src/src/scratch	2011-07-01 17:21:32.000000000 -0500
++++ src/scratch-1.4.0.7.src/src/scratch	2017-06-13 23:04:15.509111900 -0500
+@@ -4,11 +4,11 @@
+ # Original Author: Bert Freudenberg
+ # Adapted by:      Miriam Ruiz
+ 
+-VM_VERSION=`find /usr/lib/squeak/ -name "squeakvm" -type f|cut -f5 -d"/"`
++VM_VERSION=`find /usr/lib/squeak/ -name "squeakvm.exe" -type f|cut -f5 -d"/"`
+ SQ_DIR=/usr/lib/squeak/$VM_VERSION
+ VM="$SQ_DIR/squeakvm"
+ VMOPTIONS="-encoding UTF-8 -vm-display-x11 -xshm -plugins /usr/lib/scratch/Plugins/:$SQ_DIR/"
+-IMAGE="/usr/lib/scratch/Scratch.image"
++IMAGE="/usr/share/scratch/Scratch.image"
+ IMOPTIONS=""
+ DOCUMENT=""
+ WRAPPER=""
+@@ -88,7 +88,7 @@ export DBUS_FATAL_WARNINGS=0
+ if pulseaudio --check 2>/dev/null ; then
+     VMOPTIONS="$VMOPTIONS -vm-sound-pulse"
+ else 
+-    VMOPTIONS="$VMOPTIONS -vm-sound-ALSA"
++    VMOPTIONS="$VMOPTIONS -vm-sound-OSS"
+ fi
+ 
+ # VM, Image, and Document are non-optional

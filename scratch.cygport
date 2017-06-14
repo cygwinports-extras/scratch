@@ -1,0 +1,43 @@
+NAME="scratch"
+VERSION=1.4.0.7
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Programming language learning environment"
+DESCRIPTION="Scratch is a programming language that makes it easy to create
+interactive stories, games, and animations – and share your creations with
+others on the web."
+HOMEPAGE="http://scratch.mit.edu/"
+SRC_URI="http://download.scratch.mit.edu/scratch-${VERSION}.src.tar.gz"
+SRC_DIR="scratch-${VERSION}.src"
+PATCH_URI="1.4.0.7-cygwin.patch"
+
+ARCH=noarch
+
+REQUIRES="squeak-vm"
+
+src_compile() { :; }
+
+src_install() {
+	cd ${S}
+	insinto /usr/share/${NAME}
+	doins Scratch.image Scratch.ini
+
+	cp -R Help locale Media Projects ${D}/usr/share/${NAME}/
+
+	dobin src/scratch
+	doman src/man/scratch.1.gz
+	domenu src/scratch.desktop
+
+	for size in 48x48 128x128
+	do
+		insinto /usr/share/icons/hicolor/${size}/apps
+		doins src/icons/${size}/scratch.png
+		insinto /usr/share/icons/hicolor/${size}/mimetypes
+		doins src/icons/${size}/gnome-mime-application-x-scratch-project.png
+	done
+
+	insinto /usr/share/mime/packages
+	doins src/scratch.xml
+
+	dodoc gpl-2.0.txt
+}
